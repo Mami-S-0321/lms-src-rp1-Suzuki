@@ -122,6 +122,18 @@ public class StudentAttendanceService {
 		}
 		return null;
 	}
+	/* Task.25 勤怠未入力チェック
+	 * 
+	 */
+	public String AttendanceNotInputCheck(Integer studentAttendanceId){
+		Date TrainingDate = attendanceUtil.getTrainingDate();
+		
+		
+		
+		return null;
+		
+	}
+	
 
 	/**
 	 * 出勤ボタン処理

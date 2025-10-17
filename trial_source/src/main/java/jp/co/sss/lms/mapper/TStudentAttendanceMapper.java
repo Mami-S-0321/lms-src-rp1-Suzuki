@@ -37,6 +37,17 @@ public interface TStudentAttendanceMapper {
 	 */
 	TStudentAttendance findByLmsUserIdAndTrainingDate(@Param("lmsUserId") Integer lmsUserId,
 			@Param("trainingDate") Date trainingDate, @Param("deleteFlg") Short deleteFlg);
+	
+	
+	/**
+	 * 勤怠未入力チェック(LMSユーザーID＆日付＆削除フラグ)
+	 * @param lmsUserId
+	 * @param trainingDate
+	 * @param deleteFlg
+	 * @return 勤怠情報（受講生入力）エンティティ
+	 */
+	TStudentAttendance findByLmsUserIdAndTrainingDateAndDeleteFlg(@Param("lmsUserId") Integer lmsUserId,
+			@Param("trainingDate") Date trainingDate, @Param("deleteFlg") Short deleteFlg);
 
 	/**
 	 * 勤怠管理画面用DTOリスト取得
