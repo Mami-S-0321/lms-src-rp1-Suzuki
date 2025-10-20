@@ -39,14 +39,14 @@ public interface TStudentAttendanceMapper {
 			@Param("trainingDate") Date trainingDate, @Param("deleteFlg") Short deleteFlg);
 	
 	
-	/**
+	/**Task.25
 	 * 勤怠未入力チェック(LMSユーザーID＆日付＆削除フラグ)
 	 * @param lmsUserId
 	 * @param trainingDate
 	 * @param deleteFlg
 	 * @return 勤怠情報（受講生入力）エンティティ
 	 */
-	TStudentAttendance findByLmsUserIdAndTrainingDateAndDeleteFlg(@Param("lmsUserId") Integer lmsUserId,
+	Integer findByLmsUserIdAndTrainingDateAndDeleteFlg(@Param("lmsUserId") Integer lmsUserId,
 			@Param("trainingDate") Date trainingDate, @Param("deleteFlg") Short deleteFlg);
 
 	/**

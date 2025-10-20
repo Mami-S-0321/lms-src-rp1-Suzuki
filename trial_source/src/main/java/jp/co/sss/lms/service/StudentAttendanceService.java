@@ -125,12 +125,11 @@ public class StudentAttendanceService {
 	/* Task.25 勤怠未入力チェック
 	 * 
 	 */
-	public String AttendanceNotInputCheck(Integer studentAttendanceId){
+	public Boolean AttendanceNotInputCheck(){
+		Integer lmsUserId = loginUserDto.getLmsUserId();
 		Date TrainingDate = attendanceUtil.getTrainingDate();
-		
-		
-		
-		return null;
+		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, TrainingDate,(short) 0);
+		return NotInputCheck > 0 && NotInputCheck != null;
 		
 	}
 	
