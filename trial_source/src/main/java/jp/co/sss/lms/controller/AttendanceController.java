@@ -47,7 +47,7 @@ public class AttendanceController {
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 		
-		//Task.25の未入力チェック
+		//Task.25の勤怠未入力チェック
 		Boolean NotInputCheck = studentAttendanceService.AttendanceNotInputCheck();
 		model.addAttribute("NotInputCheck", NotInputCheck);
 

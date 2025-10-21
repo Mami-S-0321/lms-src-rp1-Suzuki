@@ -1,6 +1,7 @@
 package jp.co.sss.lms.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -122,17 +123,28 @@ public class StudentAttendanceService {
 		}
 		return null;
 	}
+
 	/* Task.25 勤怠未入力チェック
 	 * 
 	 */
-	public Boolean AttendanceNotInputCheck(){
+	public Boolean AttendanceNotInputCheck() {
 		Integer lmsUserId = loginUserDto.getLmsUserId();
-		Date TrainingDate = attendanceUtil.getTrainingDate();
-		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, TrainingDate,(short) 0);
+		Date today = null;
+		try {
+			Date now = new Date();
+
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+			String formattedDate = sdFormat.format(now);
+			today = sdFormat.parse(formattedDate);
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, today,
+				(short) 0);
 		return NotInputCheck > 0 && NotInputCheck != null;
-		
+
 	}
-	
 
 	/**
 	 * 出勤ボタン処理
