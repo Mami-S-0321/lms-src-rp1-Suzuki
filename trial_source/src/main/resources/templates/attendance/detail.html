@@ -83,14 +83,12 @@
 				$("#now").text('現在の時刻は　' + getClock() + '　です。');
 			}, 1000);
 		});
-		onscroll = function getClock() {
+		function getClock() {
 			const today = new Date();
 			const hours = ('0' + today.getHours()).slice(-2);
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
-	</script>
-	<script>
 		//Task.25の勤怠未入力チェック
 		const check = /*[[${NotInputCheck}]]*/ false;
 		if (check) {

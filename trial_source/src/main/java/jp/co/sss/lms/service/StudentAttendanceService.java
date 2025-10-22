@@ -140,8 +140,7 @@ public class StudentAttendanceService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, today,
-				(short) 0);
+		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, today,(short) 0);
 		return NotInputCheck > 0 && NotInputCheck != null;
 
 	}
