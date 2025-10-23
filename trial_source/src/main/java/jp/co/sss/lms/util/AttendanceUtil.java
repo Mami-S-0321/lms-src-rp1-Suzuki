@@ -132,6 +132,77 @@ public class AttendanceUtil {
 		return map;
 	}
 
+	/*	*//**
+			* Task.26 時間プルダウン
+			* 
+			* @return 時間
+			*/
+	/*
+	
+	public LinkedHashMap<Integer, String> getHourMap() {
+	LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
+	hourMap.put(null, "");
+	for (int i = 60; i < 1440;) {
+		int hour = i / 60;
+		String time;
+	
+		if (hour == 0) {
+			time = hour + "時間";
+			hourMap.put(i, time);
+	
+			i = i + 60;
+		}
+	}
+	return hourMap;
+	}
+	
+	*//**
+		* Task.26 分プルダウン
+		* 
+		* @return 分
+		*/
+	/*
+	
+	public LinkedHashMap<Integer, String> getMinuteMap() {
+	LinkedHashMap<Integer, String> minutesMap = new LinkedHashMap<>();
+	minutesMap.put(null, "");
+	for (int i = 1; i < 480;) {
+		int minute = i % 60;
+		String time = null;
+	
+		if (minute == 0) {
+			time = minute + "分";
+		}
+		minutesMap.put(i, time);
+	
+		i = i + 1;
+	
+	}
+	return minutesMap;
+	
+	}
+	
+	*//**
+		* Task.26 時間(時)の切り出し
+		* 
+		* return 時間
+		*/
+	/*
+	public Integer getHour(String trainingStartTime, String trainingEndTime) {
+	return null;
+	
+	}
+	
+	*//**
+		* Task.26 時間(分)の切り出し
+		* 
+		* @return 分
+		*//*
+			public Integer getMinute(String trainingStartTime, String trainingEndTime) {
+			return null;
+			
+			}*/
+
 	/**
 	 * 研修日の判定
 	 * 

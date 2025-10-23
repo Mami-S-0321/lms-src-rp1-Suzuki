@@ -124,10 +124,13 @@ public class StudentAttendanceService {
 		return null;
 	}
 
-	/* Task.25 勤怠未入力チェック
-	 * 
+	// Task.25
+	/**
+	 *  勤怠未入力チェック
+	 * @author MamiSuzuki
+	 * @return Boolean
 	 */
-	public Boolean AttendanceNotInputCheck() {
+	public Boolean AttendanceNotInputFlg() {
 		Integer lmsUserId = loginUserDto.getLmsUserId();
 		Date today = null;
 		try {
@@ -140,8 +143,8 @@ public class StudentAttendanceService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Integer NotInputCheck = tStudentAttendanceMapper.findByLmsUserIdAndTrainingDateAndDeleteFlg(lmsUserId, today,(short) 0);
-		return NotInputCheck > 0 && NotInputCheck != null;
+		Integer NotInputFlg = tStudentAttendanceMapper.notEnterCount(lmsUserId,(short) 0, today);
+		return NotInputFlg > 0 && NotInputFlg != null;
 
 	}
 
@@ -241,7 +244,9 @@ public class StudentAttendanceService {
 		attendanceForm.setUserName(loginUserDto.getUserName());
 		attendanceForm.setLeaveFlg(loginUserDto.getLeaveFlg());
 		attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
-
+		/*attendanceForm.setHourMap(attendanceUtil.getHourMap());//Task.26 時間マップ
+		attendanceForm.setMinuteMap(attendanceUtil.getMinuteMap());//Task.26 分マップ
+		*/
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
 			attendanceForm
