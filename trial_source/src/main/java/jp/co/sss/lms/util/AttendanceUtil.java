@@ -132,76 +132,94 @@ public class AttendanceUtil {
 		return map;
 	}
 
-	/*	*//**
-			* Task.26 時間プルダウン
-			* 
-			* @return 時間
-			*/
-	/*
-	
+	//Task.26 鈴木
+	/**
+	 * 時間のプルダウンマップ
+	 * 
+	 * @author MamiSuzuki
+	 * @return 時間
+	 */
 	public LinkedHashMap<Integer, String> getHourMap() {
-	LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
-	hourMap.put(null, "");
-	for (int i = 60; i < 1440;) {
-		int hour = i / 60;
-		String time;
-	
-		if (hour == 0) {
-			time = hour + "時間";
-			hourMap.put(i, time);
-	
-			i = i + 60;
+		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
+		hourMap.put(null, "");
+		for (int hour = 0; hour < 24; hour++) {
+			String value = String.format("%02d時", hour);
+			hourMap.put( hour, value);
 		}
+		return hourMap;
 	}
-	return hourMap;
-	}
-	
-	*//**
-		* Task.26 分プルダウン
-		* 
-		* @return 分
-		*/
-	/*
-	
+
+	//Task.26 鈴木
+	/**
+	 * 分のプルダウンマップ
+	 * 
+	 * @author MamiSuzuki
+	 * @return 分
+	 */
+
 	public LinkedHashMap<Integer, String> getMinuteMap() {
-	LinkedHashMap<Integer, String> minutesMap = new LinkedHashMap<>();
-	minutesMap.put(null, "");
-	for (int i = 1; i < 480;) {
-		int minute = i % 60;
-		String time = null;
-	
-		if (minute == 0) {
-			time = minute + "分";
+		LinkedHashMap<Integer, String> minutesMap = new LinkedHashMap<>();
+		minutesMap.put(null, "");
+		for (int minute = 0; minute < 60; minute++) {
+			String value = String.format("%02d分", minute);
+			minutesMap.put( minute, value);
 		}
-		minutesMap.put(i, time);
-	
-		i = i + 1;
-	
+		return minutesMap;
+
 	}
-	return minutesMap;
-	
+
+	//Task.26 鈴木
+	/**
+	 * 時間(時)の切り出し
+	 * 
+	 * @author MamiSuzuki
+	 * @return 時間
+	 */
+
+	public Integer getHour(String trainingStartTime) {
+		
+		return null;
+
+	}
+
+	//Task.26 鈴木
+	/**
+	 * 時間(分)の切り出し
+	 * 
+	 * @author MamiSuzuki
+	 * @return 分
+	 */
+	public Integer getMinute(String trainingStartTime) {
+		return null;
+
 	}
 	
-	*//**
-		* Task.26 時間(時)の切り出し
-		* 
-		* return 時間
-		*/
-	/*
-	public Integer getHour(String trainingStartTime, String trainingEndTime) {
-	return null;
-	
+	//Task.26 鈴木
+	/**
+	 * 中抜け時間(文字列)を数字に変換
+	 * 
+	 * @author MamiSuzuki
+	 * @param min 中抜け時間
+	 */
+	public Integer reverseBlankTime(String min) {
+		
+		return null;
+		
 	}
 	
-	*//**
-		* Task.26 時間(分)の切り出し
-		* 
-		* @return 分
-		*//*
-			public Integer getMinute(String trainingStartTime, String trainingEndTime) {
-			return null;
-			
-			}*/
+	//Task.26 鈴木
+	/**
+	 * プルダウン初期表示用の中抜け時間
+	 * 
+	 * @author MamiSuzuki
+	 * @param min 中抜け時間
+	 */
+	public String convertBlankTime(Integer min) {
+		
+		
+		return null;
+		
+	}
 
 	/**
 	 * 研修日の判定

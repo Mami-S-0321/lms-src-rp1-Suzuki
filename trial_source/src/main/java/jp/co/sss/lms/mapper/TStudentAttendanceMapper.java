@@ -40,7 +40,8 @@ public interface TStudentAttendanceMapper {
 	
 	//Task.25
 	/**
-	 * 勤怠未入力チェック(LMSユーザーID＆日付＆削除フラグ)
+	 * 出退勤時間未入力チェック(LMSユーザーID＆日付＆削除フラグ)
+	 * 
 	 * @author MamiSuzuki
 	 * @param lmsUserId
 	 * @param deleteFlg

@@ -36,7 +36,7 @@
 						</tr>
 					</thead>
 
-					<tbody style="display: block;">
+					<tbody>
 						<th:block th:each="dailyAttendanceForm, stat : *{attendanceForm.attendanceList}">
 							<tr>
 								<th:block>
@@ -56,14 +56,42 @@
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
 								<td class="w70">
-
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTime|"
-										th:value="${dailyAttendanceForm.trainingStartTime}" class="form-control" />
+									<div class="nowrap-container">
+										<select th:name="|attendanceList[${stat.index}].trainingStartTimeHour|"
+											class="form-control" style="display: inline-block;">
+											<option th:each="getHourMap : ${attendanceForm.getHourMap}"
+												th:value="${getHourMap.key}" th:inlne="text" class="form-control"
+												th:selected="${getHourMap.key == dailyAttendanceForm.trainingStartTimeHour}">
+												[[${getHourMap.value}]]</option>
+										</select>
+										&nbsp; : &nbsp;
+										<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|"
+											class="form-control" style="display:inline-block;">
+											<option th:each="getMinuteMap : ${attendanceForm.getMinuteMap}"
+												th:value="${getMinuteMap.key}" th:inlne="text" class="form-control"
+												th:selected="${getMinuteMap.key == dailyAttendanceForm.trainingStartTimeMinute}">
+												[[${getMinuteMap.value}]]</option>
+										</select>
+									</div>
 								</td>
 								<td class="w70">
-
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTime|"
-										th:value="${dailyAttendanceForm.trainingEndTime}" class="form-control" />
+									<div class="nowrap-container"style="white-space: nowrap;">
+										<select th:name="|attendanceList[${stat.index}].trainingEndTimeHour|"
+											class="form-control"style="display: inline-block;">
+											<option th:each="getHourMap : ${attendanceForm.getHourMap}"
+												th:value="${getHourMap.key}" th:inlne="text" class="form-control"
+												th:selected="${getHourMap.key == dailyAttendanceForm.trainingEndTimeHour}">
+												[[${getHourMap.value}]]</option>
+										</select>
+										&nbsp; : &nbsp;
+										<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|"
+											class="form-control"style="display:inline-block;">
+											<option th:each="getMinuteMap : ${attendanceForm.getMinuteMap}"
+												th:value="${getMinuteMap.key}" th:inlne="text" class="form-control"
+												th:selected="${getMinuteMap.key == dailyAttendanceForm.trainingEndTimeMinute}">
+												[[${getMinuteMap.value}]]</option>
+										</select>
+									</div>
 								</td>
 								<td class="w80">
 									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control">
@@ -96,15 +124,21 @@
 			</form>
 		</div>
 	</div>
+	
 	<!--Task.29のスクロールバー追記-->
 	<style th:inline="css">
 		tbody {
+			display: inline-block;
 			height: 550px;
 			overflow-y: scroll;
 			border-collapse: collapse;
 			/* 縦スクロールバーを表示 */
 			border: 1px solid #ccc;
 		}
+		
+		
+		
+		
 	</style>
 
 </body>
