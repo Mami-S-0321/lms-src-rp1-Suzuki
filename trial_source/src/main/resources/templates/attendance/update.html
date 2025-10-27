@@ -28,11 +28,11 @@
 						<tr>
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
-							<th class="w70">出勤</th>
-							<th class="w70">退勤</th>
-							<th class="w80">中抜け時間</th>
-							<th class="w70">ステータス</th>
-							<th class="w240">備考</th>
+							<th class="w70" style="width: 150px;">出勤</th>
+							<th class="w70" style="width: 150px;">退勤</th>
+							<th class="w80" style="width: 100px;">中抜け時間</th>
+							<th class="w70" style="width: 60px;">ステータス</th>
+							<th class="w240"  style="width: 225px;">備考</th>
 						</tr>
 					</thead>
 
@@ -58,7 +58,8 @@
 								<td class="w70">
 									<div class="nowrap-container">
 										<select th:name="|attendanceList[${stat.index}].trainingStartTimeHour|"
-											class="form-control" style="display: inline-block;">
+											class="form-control"
+											style="display: inline-block; width: 63px; height: 40px;">
 											<option th:each="getHourMap : ${attendanceForm.getHourMap}"
 												th:value="${getHourMap.key}" th:inlne="text" class="form-control"
 												th:selected="${getHourMap.key == dailyAttendanceForm.trainingStartTimeHour}">
@@ -66,7 +67,8 @@
 										</select>
 										&nbsp; : &nbsp;
 										<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|"
-											class="form-control" style="display:inline-block;">
+											class="form-control"
+											style="display:inline-block; width: 63px; height: 40px;">
 											<option th:each="getMinuteMap : ${attendanceForm.getMinuteMap}"
 												th:value="${getMinuteMap.key}" th:inlne="text" class="form-control"
 												th:selected="${getMinuteMap.key == dailyAttendanceForm.trainingStartTimeMinute}">
@@ -75,9 +77,10 @@
 									</div>
 								</td>
 								<td class="w70">
-									<div class="nowrap-container"style="white-space: nowrap;">
+									<div class="nowrap-container" style="white-space: nowrap;">
 										<select th:name="|attendanceList[${stat.index}].trainingEndTimeHour|"
-											class="form-control"style="display: inline-block;">
+											class="form-control"
+											style="display: inline-block; width: 63px; height: 40px;">
 											<option th:each="getHourMap : ${attendanceForm.getHourMap}"
 												th:value="${getHourMap.key}" th:inlne="text" class="form-control"
 												th:selected="${getHourMap.key == dailyAttendanceForm.trainingEndTimeHour}">
@@ -85,7 +88,8 @@
 										</select>
 										&nbsp; : &nbsp;
 										<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|"
-											class="form-control"style="display:inline-block;">
+											class="form-control"
+											style="display:inline-block; width: 63px; height: 40px;">
 											<option th:each="getMinuteMap : ${attendanceForm.getMinuteMap}"
 												th:value="${getMinuteMap.key}" th:inlne="text" class="form-control"
 												th:selected="${getMinuteMap.key == dailyAttendanceForm.trainingEndTimeMinute}">
@@ -93,7 +97,7 @@
 										</select>
 									</div>
 								</td>
-								<td class="w80">
+								<td class="w80" style="width: 100px;">
 									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control">
 										<option th:each="blankTime : ${attendanceForm.blankTimes}"
 											th:value="${blankTime.key}" th:inlne="text" class="form-control"
@@ -101,8 +105,8 @@
 											[[${blankTime.value}]]</option>
 									</select>
 								</td>
-								<td class="w70">[[${dailyAttendanceForm.statusDispName}]]</td>
-								<td class="w240">
+								<td class="w70" style="width: 60px;">[[${dailyAttendanceForm.statusDispName}]]</td>
+								<td class="w240" style="width: 210px;">
 									<input type="text" th:name="|attendanceList[${stat.index}].note|"
 										th:value="${dailyAttendanceForm.note}" class="form-control"></input>
 								</td>
@@ -124,7 +128,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<!--Task.29のスクロールバー追記-->
 	<style th:inline="css">
 		tbody {
@@ -135,10 +139,17 @@
 			/* 縦スクロールバーを表示 */
 			border: 1px solid #ccc;
 		}
-		
-		
-		
-		
+		.w140{
+			width: 150px;
+		}
+
+		.w300 {
+			width: 180px;
+		}
+
+		.w70 {
+			width: auto;
+		}
 	</style>
 
 </body>

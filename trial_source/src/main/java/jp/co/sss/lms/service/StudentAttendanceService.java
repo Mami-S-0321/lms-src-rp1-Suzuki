@@ -2,6 +2,7 @@ package jp.co.sss.lms.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -145,7 +146,7 @@ public class StudentAttendanceService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Integer NotInputFlg = tStudentAttendanceMapper.notEnterCount(lmsUserId,deleteFlg, today);
+		Integer NotInputFlg = tStudentAttendanceMapper.notEnterCount(lmsUserId, deleteFlg, today);
 		return NotInputFlg > 0 && NotInputFlg != null;
 
 	}
@@ -248,7 +249,7 @@ public class StudentAttendanceService {
 		attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
 		attendanceForm.setGetHourMap(attendanceUtil.getHourMap());//Task.26鈴木 時間マップ
 		attendanceForm.setGetMinuteMap(attendanceUtil.getMinuteMap());//Task.26鈴木 分マップ
-		
+
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
 			attendanceForm
@@ -267,6 +268,11 @@ public class StudentAttendanceService {
 			dailyAttendanceForm
 					.setTrainingStartTime(attendanceManagementDto.getTrainingStartTime());
 			dailyAttendanceForm.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
+			dailyAttendanceForm.setTrainingStartTimeHour(attendanceManagementDto.getTrainingStartTime());//Task.26鈴木 出勤時間(時)
+			dailyAttendanceForm.setTrainingStartTimeMinute(attendanceManagementDto.getTrainingStartTime());//Task.26鈴木 出勤時間(分)
+			dailyAttendanceForm.setTrainingEndTimeHour(attendanceManagementDto.getTrainingEndTime());//Task.26鈴木 退勤時間(時)
+			dailyAttendanceForm.setTrainingEndTimeMinute(attendanceManagementDto.getTrainingEndTime());//Task.26鈴木 退勤時間(分)
+
 			if (attendanceManagementDto.getBlankTime() != null) {
 				dailyAttendanceForm.setBlankTime(attendanceManagementDto.getBlankTime());
 				dailyAttendanceForm.setBlankTimeValue(String.valueOf(
@@ -281,6 +287,29 @@ public class StudentAttendanceService {
 			dailyAttendanceForm.setStatusDispName(attendanceManagementDto.getStatusDispName());
 
 			attendanceForm.getAttendanceList().add(dailyAttendanceForm);
+
+			//Task.26鈴木 時と分を切り出して合体
+			AttendanceUtil attendanceUtil = new AttendanceUtil();
+			attendanceUtil.getHour(null);
+			attendanceUtil.getMinute(null);
+
+			try {
+				dailyAttendanceForm.getTrainingStartTimeHour();
+				dailyAttendanceForm.getTrainingStartTimeMinute();
+				dailyAttendanceForm.getTrainingEndTimeHour();
+				dailyAttendanceForm.getTrainingEndTimeMinute();
+
+				LocalTime TrainingStartTimeHour = LocalTime.parse(dailyAttendanceForm.getTrainingStartTimeHour());
+				LocalTime TrainingStartTimeMinute = LocalTime.parse(dailyAttendanceForm.getTrainingStartTimeMinute());
+				String trainingStartTimeHour = String.valueOf(TrainingStartTimeHour);
+				String trainingStartTimeMinute = String.valueOf(TrainingStartTimeMinute);
+				String TrainingStartTime = trainingStartTimeHour + trainingStartTimeMinute;
+				
+				System.out.println(TrainingStartTime + "時と分が合体");
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 		}
 
 		return attendanceForm;

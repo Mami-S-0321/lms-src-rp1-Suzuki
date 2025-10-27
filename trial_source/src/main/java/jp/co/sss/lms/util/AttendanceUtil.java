@@ -1,6 +1,8 @@
 package jp.co.sss.lms.util;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jp.co.sss.lms.enums.AttendanceStatusEnum;
+import jp.co.sss.lms.form.DailyAttendanceForm;
 import jp.co.sss.lms.mapper.MSectionMapper;
 
 /**
@@ -143,8 +146,8 @@ public class AttendanceUtil {
 		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
 		hourMap.put(null, "");
 		for (int hour = 0; hour < 24; hour++) {
-			String value = String.format("%02d時", hour);
-			hourMap.put( hour, value);
+			String value = String.format("%02d", hour);
+			hourMap.put(hour, value);
 		}
 		return hourMap;
 	}
@@ -161,8 +164,8 @@ public class AttendanceUtil {
 		LinkedHashMap<Integer, String> minutesMap = new LinkedHashMap<>();
 		minutesMap.put(null, "");
 		for (int minute = 0; minute < 60; minute++) {
-			String value = String.format("%02d分", minute);
-			minutesMap.put( minute, value);
+			String value = String.format("%02d", minute);
+			minutesMap.put(minute, value);
 		}
 		return minutesMap;
 
@@ -173,13 +176,16 @@ public class AttendanceUtil {
 	 * 時間(時)の切り出し
 	 * 
 	 * @author MamiSuzuki
-	 * @return 時間
+	 * @return 出退勤時間(時間)
 	 */
 
 	public Integer getHour(String trainingStartTime) {
-		
-		return null;
-
+		DailyAttendanceForm dailyAttendanceForm = new DailyAttendanceForm();
+		dailyAttendanceForm.getTrainingStartTime();
+		LocalTime clockInTime = LocalTime.parse(dailyAttendanceForm.getTrainingStartTime()); // 出勤時間を設定
+		Integer hour = clockInTime.getHour(); // 時を取得
+		String Hour = String.valueOf(hour);
+		return getHour(Hour);
 	}
 
 	//Task.26 鈴木
@@ -187,26 +193,35 @@ public class AttendanceUtil {
 	 * 時間(分)の切り出し
 	 * 
 	 * @author MamiSuzuki
-	 * @return 分
+	 * @return 出退勤時間(分)
 	 */
 	public Integer getMinute(String trainingStartTime) {
-		return null;
+
+		DailyAttendanceForm dailyAttendanceForm = new DailyAttendanceForm();
+		dailyAttendanceForm.getTrainingStartTime();
+		LocalTime clockInTime = LocalTime.parse(dailyAttendanceForm.getTrainingStartTime()); // 出勤時間を設定
+		Integer minute = clockInTime.getMinute(); // 分を取得
+		String Minute = String.valueOf(minute);
+
+		return getMinute(Minute);
 
 	}
-	
+
 	//Task.26 鈴木
 	/**
 	 * 中抜け時間(文字列)を数字に変換
 	 * 
 	 * @author MamiSuzuki
 	 * @param min 中抜け時間
-	 */
+	 
 	public Integer reverseBlankTime(String min) {
-		
-		return null;
-		
-	}
-	
+
+		Integer ReverseBlankTime = (reverseBlankTime(min));
+
+		return ReverseBlankTime;
+
+	}*/
+
 	//Task.26 鈴木
 	/**
 	 * プルダウン初期表示用の中抜け時間
@@ -215,10 +230,13 @@ public class AttendanceUtil {
 	 * @param min 中抜け時間
 	 */
 	public String convertBlankTime(Integer min) {
-		
-		
-		return null;
-		
+		DailyAttendanceForm dailyAttendanceForm = new DailyAttendanceForm();
+
+		SimpleDateFormat sdFormat = new SimpleDateFormat("HH時mm分");
+		String ConvertBlankTime = sdFormat.format(dailyAttendanceForm.getBlankTime());
+
+		return ConvertBlankTime;
+
 	}
 
 	/**
