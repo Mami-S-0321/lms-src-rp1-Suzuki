@@ -207,20 +207,6 @@ public class AttendanceUtil {
 
 	}
 
-	//Task.26 鈴木
-	/**
-	 * 中抜け時間(文字列)を数字に変換
-	 * 
-	 * @author MamiSuzuki
-	 * @param min 中抜け時間
-	 
-	public Integer reverseBlankTime(String min) {
-
-		Integer ReverseBlankTime = (reverseBlankTime(min));
-
-		return ReverseBlankTime;
-
-	}*/
 
 	//Task.26 鈴木
 	/**

@@ -2,7 +2,6 @@ package jp.co.sss.lms.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -130,6 +129,7 @@ public class StudentAttendanceService {
 	 *  出退勤時間未入力チェック
 	 *  
 	 * @author MamiSuzuki
+	 * @param lmsUserId
 	 * @return Boolean
 	 */
 	public Boolean AttendanceNotInputFlg() {
@@ -288,28 +288,6 @@ public class StudentAttendanceService {
 
 			attendanceForm.getAttendanceList().add(dailyAttendanceForm);
 
-			//Task.26鈴木 時と分を切り出して合体
-			AttendanceUtil attendanceUtil = new AttendanceUtil();
-			attendanceUtil.getHour(null);
-			attendanceUtil.getMinute(null);
-
-			try {
-				dailyAttendanceForm.getTrainingStartTimeHour();
-				dailyAttendanceForm.getTrainingStartTimeMinute();
-				dailyAttendanceForm.getTrainingEndTimeHour();
-				dailyAttendanceForm.getTrainingEndTimeMinute();
-
-				LocalTime TrainingStartTimeHour = LocalTime.parse(dailyAttendanceForm.getTrainingStartTimeHour());
-				LocalTime TrainingStartTimeMinute = LocalTime.parse(dailyAttendanceForm.getTrainingStartTimeMinute());
-				String trainingStartTimeHour = String.valueOf(TrainingStartTimeHour);
-				String trainingStartTimeMinute = String.valueOf(TrainingStartTimeMinute);
-				String TrainingStartTime = trainingStartTimeHour + trainingStartTimeMinute;
-				
-				System.out.println(TrainingStartTime + "時と分が合体");
-			} catch (Exception e) {
-
-				e.printStackTrace();
-			}
 		}
 
 		return attendanceForm;
@@ -323,6 +301,10 @@ public class StudentAttendanceService {
 	 * @throws ParseException
 	 */
 	public String update(AttendanceForm attendanceForm) throws ParseException {
+		//Task.26鈴木 時間をhh:mm形式に設定
+		Date Date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		String formattedTime = sdf.format(Date);
 
 		Integer lmsUserId = loginUserUtil.isStudent() ? loginUserDto.getLmsUserId()
 				: attendanceForm.getLmsUserId();
@@ -332,9 +314,8 @@ public class StudentAttendanceService {
 				.findByLmsUserId(lmsUserId, Constants.DB_FLG_FALSE);
 
 		// 入力された情報を更新用のエンティティに移し替え
-		Date date = new Date();
+		Date date = new Date();	
 		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
-
 			// 更新用エンティティ作成
 			TStudentAttendance tStudentAttendance = new TStudentAttendance();
 			// 日次勤怠フォームから更新用のエンティティにコピー
@@ -355,12 +336,22 @@ public class StudentAttendanceService {
 			TrainingTime trainingStartTime = null;
 			trainingStartTime = new TrainingTime(dailyAttendanceForm.getTrainingStartTime());
 			tStudentAttendance.setTrainingStartTime(trainingStartTime.getFormattedString());
+			//Task.26鈴木 出勤時間をhh:mm形式に設定
+			dailyAttendanceForm.setTrainingStartTimeHour(formattedTime);
+			dailyAttendanceForm.setTrainingStartTimeMinute(formattedTime);
+			
 			// 退勤時刻整形
 			TrainingTime trainingEndTime = null;
 			trainingEndTime = new TrainingTime(dailyAttendanceForm.getTrainingEndTime());
 			tStudentAttendance.setTrainingEndTime(trainingEndTime.getFormattedString());
+			//Task.26鈴木 退勤時間をhh:mm形式に設定
+			dailyAttendanceForm.setTrainingEndTimeHour(formattedTime);
+			dailyAttendanceForm.setTrainingEndTimeMinute(formattedTime);
 			// 中抜け時間
 			tStudentAttendance.setBlankTime(dailyAttendanceForm.getBlankTime());
+			//
+			
+			
 			// 遅刻早退ステータス
 			if ((trainingStartTime != null || trainingEndTime != null)
 					&& !dailyAttendanceForm.getStatusDispName().equals("欠席")) {
